@@ -35,7 +35,7 @@ public class MovieController {
 
   @GetMapping(
     path="/search", 
-    // consumes = MediaType.APPLICATION_JSON_VALUE,
+    consumes = MediaType.APPLICATION_JSON_VALUE,
     produces=MediaType.APPLICATION_JSON_VALUE)
   @ResponseBody
   public ResponseEntity<String> getMovieReviewsByName(@RequestParam (required=true) String query){
@@ -43,6 +43,11 @@ public class MovieController {
     
     JsonArray result = null;
     List<Review> reviewList = this.movieSvc.searchReviews(query);
+
+    for(Review r: reviewList){
+      int count = this.movieSvc.countComments(r.getTitle());
+      r.setCommentCount(count);
+    }
     
     JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
     for(Review r : reviewList){
@@ -59,15 +64,23 @@ public class MovieController {
         .body(result.toString());
   }
 
-  @PostMapping(path="/comment", consumes="application/json", produces="application/x-www-form-urlencoded")
+  //to match path same as Angular service
+  @PostMapping(path="/comment"
+  , consumes="application/json"
+  , produces="application/x-www-form-urlencoded"
+  )
   public ResponseEntity<String> saveComment(@RequestBody Comment comment){
-    System.out.println(">>> save comment: "+comment);
+    System.out.println(">>> save comment...: "+comment);
     Comment c = new Comment();
     c.setMovieName(comment.getMovieName());
     c.setName(comment.getName());
     c.setRating(comment.getRating());
     c.setComment(comment.getComment());
     Document sc = this.movieSvc.insertComment(c);
+    int count = this.movieSvc.countComments(comment.getMovieName());
+    System.out.println(">>> count:"+count);
+    
+
     return ResponseEntity
         .status(HttpStatus.OK)
         .contentType(MediaType.APPLICATION_JSON)

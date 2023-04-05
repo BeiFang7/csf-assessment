@@ -37,8 +37,18 @@ public class MovieRepository {
 	// Write a method to insert movie comments comments collection
 	// Write the native mongo database query in the comment below
 	//
+	/*
+	db.comments.insert({
+		"movieName": ?,
+  	"name": ?,
+		"rating": ?,
+		"comment": ?
+	})
+	 */
 	public Document insertComment(Comment c){
 		Document doc = c.toDocument(c);
     return mongoTemplate.insert(doc,COLLECTION_COMMENTS);
   }
+
+	
 }

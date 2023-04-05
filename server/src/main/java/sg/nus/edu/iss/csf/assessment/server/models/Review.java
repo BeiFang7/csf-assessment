@@ -111,6 +111,7 @@ public class Review {
         .add("summary",getSummary())
         .add("reviewURL",getReviewURL())
         .add("image",getImage())
+        .add("commentCount",getCommentCount())
         .build();
   }
 }
