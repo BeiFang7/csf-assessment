@@ -1,0 +1,30 @@
+<form [formGroup]="commentForm">
+  <h1>Post Comment for {{movieName}} </h1>
+  <table>
+    <tr>Name: </tr>
+    <tr>
+      <input type="text" formControlName="name">
+      <div *ngIf="isCommentFormInvalid('name')">
+        Please enter your name, at least 3 chars long.
+      </div>
+    </tr>
+    <tr>Rating: </tr>
+    <tr>
+      <input type="number" min="1" max="5" formControlName="rating">
+      <div *ngIf="isCommentFormInvalid('rating')">
+        Please rate from 1 to 5.
+      </div>
+    </tr>
+    <tr>Comment: </tr>
+    <tr>
+      <textarea placeholder="Type here" rows="4" cols="20" formControlName="comment"></textarea>
+      <div *ngIf="isCommentFormInvalid('comment')">
+        Please enter your comment.
+      </div>
+    </tr>
+    
+    <tr></tr>
+    <button type="button" (click)="back()">Back</button>
+    <button type="button" (click)="postComment()" [disabled]="commentForm.invalid">Post</button>
+  </table>
+</form>

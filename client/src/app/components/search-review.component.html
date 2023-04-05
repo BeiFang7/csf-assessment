@@ -1,0 +1,9 @@
+<h1>Search Movie Reviews</h1>
+<form [formGroup]="searchForm">
+  <span>Movie Name: </span>
+  <input type="text" formControlName="movieName">
+  <div *ngIf="isSearchFormInvalid('movieName')">
+    Please enter a movie name, with at least 2 chars.
+  </div>
+  <button type="button" (click)="search()" [disabled]="searchForm.invalid">Search</button>
+</form>
