@@ -1,18 +1,32 @@
 <h1>Search Result</h1>
 <button type="button" (click)="back()">Back</button>
 
-<div *ngIf="reviews.length <= 0">
+<!-- check if reviews are undefined or empty -->
+<div *ngIf="!reviews || reviews.length <= 0">
   <h2>Your search produces no result</h2>
 </div>
 
-<div *ngIf="reviews.length > 0">
+<div *ngIf="reviews && reviews.length > 0">
   <div *ngFor="let r of reviews">
-    <img src="{{r.image}}">
-    <br><br>
-    <a href="{{r.reviewURL}}">{{r.title}}  {{r.rating}}</a>
-    <h5>{{r.headline}}</h5>
-    <h5>{{r.summary}}</h5>
-    <h6>Comments: {{r.commentCount}}</h6>
-    <button type="button" (click)="comment(r.title)">Comment</button>
+    <table border="solid" width="700">
+      <tr>
+        <td valign="top" align="center">
+          <img src="{{r.image}}" width="200" height="150">
+        </td>
+        <td valign="top">
+          <span>
+            <a href="{{r.reviewURL}}">
+              <strong>{{r.title}}</strong> 
+            </a>
+            &nbsp;
+            <span style="font-size: 14px;">Rating: {{r.rating}}</span>
+          </span>
+          <p style="font-size: 14px;">{{r.headline | uppercase}}</p>
+          <p style="font-size: 14px;">{{r.summary | titlecase}}</p>
+          <h5>Comments: {{r.commentCount}}</h5>
+          <button type="button" (click)="comment(r.title)">Comment</button>
+        </td>
+      </tr>
+    </table>
   </div>
 </div>

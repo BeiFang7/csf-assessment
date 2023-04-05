@@ -39,7 +39,7 @@ export class MovieReviewsListComponent implements OnInit{
   }
 
   comment(movieName:string){
-    this.router.navigate(['/comment'], { queryParams: { movieName } });
+    this.router.navigate(['/comment'], { queryParams: { query: this.query,movieName } });
 
   }
 

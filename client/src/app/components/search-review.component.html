@@ -2,7 +2,7 @@
 <form [formGroup]="searchForm">
   <span>Movie Name: </span>
   <input type="text" formControlName="movieName">
-  <div *ngIf="isSearchFormInvalid('movieName')">
+  <div *ngIf="isSearchFormInvalid('movieName')" class="error">
     Please enter a movie name, with at least 2 chars.
   </div>
   <button type="button" (click)="search()" [disabled]="searchForm.invalid">Search</button>

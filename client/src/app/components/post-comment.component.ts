@@ -25,6 +25,8 @@ export class PostCommentComponent implements OnInit {
     this.queryParams$ = this.activatedRoute.queryParams.subscribe((queryParams)=>{
       this.movieName = queryParams['movieName'];
       console.log("movieName:", this.movieName);
+      this.commentParam=queryParams;
+      console.log("commentParam:",this.commentParam)
 
 
     })
@@ -51,10 +53,9 @@ export class PostCommentComponent implements OnInit {
   }
 
   back() {
-    this.router.navigate([
-      '/search',
-      { queryParams: { query: this.movieName } },
-    ]);
+    this.router.navigate(['/search'], {
+      queryParams: { query: this.commentParam.query },
+    });
   }
 
   postComment() {
@@ -69,6 +70,7 @@ export class PostCommentComponent implements OnInit {
     c.comment = commentFormVal;
     
     this.movieSvc.postComment(c);
-    this.router.navigate(['/search'], { queryParams: { query: this.movieName } });
+    this.router.navigate(['/search'], { queryParams: { query: this.commentParam.query } });
+    console.log(">>> post Comment:",c)
   }
 }

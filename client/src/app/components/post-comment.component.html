@@ -1,24 +1,25 @@
 <form [formGroup]="commentForm">
-  <h1>Post Comment for {{movieName}} </h1>
+  <h1>Post Comment for  </h1>
+  <h1>{{movieName}}</h1>
   <table>
     <tr>Name: </tr>
     <tr>
       <input type="text" formControlName="name">
-      <div *ngIf="isCommentFormInvalid('name')">
+      <div *ngIf="isCommentFormInvalid('name')" class="error">
         Please enter your name, at least 3 chars long.
       </div>
     </tr>
     <tr>Rating: </tr>
     <tr>
       <input type="number" min="1" max="5" formControlName="rating">
-      <div *ngIf="isCommentFormInvalid('rating')">
+      <div *ngIf="isCommentFormInvalid('rating')" class="error">
         Please rate from 1 to 5.
       </div>
     </tr>
     <tr>Comment: </tr>
     <tr>
       <textarea placeholder="Type here" rows="4" cols="20" formControlName="comment"></textarea>
-      <div *ngIf="isCommentFormInvalid('comment')">
+      <div *ngIf="isCommentFormInvalid('comment')" class="error">
         Please enter your comment.
       </div>
     </tr>
