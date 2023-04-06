@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MovieService } from '../services/MovieService';
@@ -9,7 +9,7 @@ import { Review } from '../models/review';
   templateUrl: './movie-reviews-list.component.html',
   styleUrls: ['./movie-reviews-list.component.css']
 })
-export class MovieReviewsListComponent implements OnInit{
+export class MovieReviewsListComponent implements OnInit, OnDestroy{
   movieName = "";
   reviews!: Review[];
   queryParams$!:Subscription
@@ -32,6 +32,10 @@ export class MovieReviewsListComponent implements OnInit{
     });
     
     
+  }
+
+  ngOnDestroy(): void {
+      this.queryParams$.unsubscribe
   }
 
   back(){
